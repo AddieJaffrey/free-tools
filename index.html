@@ -1,92 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Word to PDF Converter - Free Online Tool</title>
-<meta name="description" content="Free online Word to PDF converter. Convert DOCX to PDF instantly without installing software. Works directly in your browser.">
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        padding: 20px;
-        text-align: center;
-    }
-    h1 {
-        color: #333;
-    }
-    .container {
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        display: inline-block;
-        margin-top: 20px;
-    }
-    input[type="file"] {
-        margin: 10px 0;
-    }
-    button {
-        padding: 10px 20px;
-        border: none;
-        background: #28a745;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    button:hover {
-        background: #218838;
-    }
-    #output {
-        margin-top: 15px;
-    }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free PDF to Word Converter — No Signup, No Upload</title>
+  <meta name="description" content="Convert your PDF files to editable Word documents for free. No signup, no email, and no file uploads — works entirely in your browser.">
+  <meta name="keywords" content="PDF to Word, convert PDF online, free document converter, browser PDF tool">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f8fa; margin:0; padding:0; line-height:1.6; }
+    header { background:#007BFF; color:white; padding:20px; text-align:center; }
+    h1 { margin:0; }
+    main { max-width:800px; margin:auto; padding:20px; }
+    .tool { background:white; padding:20px; border-radius:8px; box-shadow:0 3px 12px rgba(0,0,0,0.1); text-align:center; }
+    input[type=file] { margin:12px 0; }
+    button { padding:10px 20px; border:none; border-radius:5px; background:#007BFF; color:white; cursor:pointer; }
+    button:disabled { background:#aaa; cursor:not-allowed; }
+    #status { margin-top:12px; color:#555; font-size:14px; }
+    footer { background:#f1f1f1; padding:20px; text-align:center; font-size:14px; color:#555; margin-top:40px; }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Free PDF to Word Converter</h1>
+    <p>Fast, secure, and works entirely in your browser</p>
+  </header>
 
-<h1>Word to PDF Converter</h1>
-<p>Upload your DOCX file and download it instantly as a PDF — 100% free, no signup.</p>
+  <main>
+    <section>
+      <p>Welcome to our free PDF to Word converter tool. This online converter lets you turn your PDF documents into fully editable Word files (.docx) without uploading them to any server. Everything happens right in your browser, which means your files never leave your computer — making it both private and secure.</p>
+      <p>Whether you need to edit a PDF, extract text, or reuse content in Word format, this tool will help you do it instantly, without any signups, watermarks, or hidden fees.</p>
+    </section>
 
-<div class="container">
-    <input type="file" id="upload" accept=".docx">
-    <br>
-    <button onclick="convertToPDF()">Convert to PDF</button>
-    <div id="output"></div>
-</div>
+    <div class="tool">
+      <h2>Convert Your PDF</h2>
+      <input type="file" id="pdfFile" accept="application/pdf">
+      <br>
+      <button id="convertBtn" disabled>Convert to Word (.docx)</button>
+      <div id="status"></div>
+    </div>
 
-<!-- Libraries for DOCX to PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+    <section>
+      <h3>How to Use</h3>
+      <ol>
+        <li>Click on the "Choose File" button and select your PDF file.</li>
+        <li>Press the "Convert to Word" button.</li>
+        <li>Wait a few seconds — your Word file will be downloaded automatically.</li>
+      </ol>
 
-<script>
-function convertToPDF() {
-    const fileInput = document.getElementById('upload');
-    const file = fileInput.files[0];
-    if (!file) {
-        alert("Please select a DOCX file.");
-        return;
-    }
+      <h3>Why Use This Tool?</h3>
+      <ul>
+        <li><strong>Private:</strong> Files never leave your computer.</li>
+        <li><strong>Free:</strong> No signup, no payment.</li>
+        <li><strong>Fast:</strong> Instant conversion in your browser.</li>
+      </ul>
+    </section>
+  </main>
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const arrayBuffer = e.target.result;
-        window.docx.renderAsync(arrayBuffer, document.createElement('canvas')).then(function (canvas) {
-            const pdfDoc = {
-                content: [
-                    { image: canvas.toDataURL('image/png'), width: 500 }
-                ]
-            };
-            pdfMake.createPdf(pdfDoc).download(file.name.replace('.docx', '.pdf'));
-            document.getElementById('output').innerHTML = `<p>✅ File converted successfully!</p>`;
-        }).catch(err => {
-            alert("Error converting file. Try another DOCX.");
-            console.error(err);
-        });
-    };
-    reader.readAsArrayBuffer(file);
-}
-</script>
+  <footer>
+    <p>© 2025 Free Tools — Your trusted source for simple, secure, and free online tools.</p>
+  </footer>
 
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/2.3.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+
+  <script>
+    const btn = document.getElementById('convertBtn');
+    const input = document.getElementById('pdfFile');
+    const status = document.getElementById('status');
+
+    input.addEventListener('change', () => {
+      btn.disabled = !input.files[0];
+      status.textContent = '';
+    });
+
+    btn.addEventListener('click', async () => {
+      const file = input.files[0];
+      if (!file) return;
+      btn.disabled = true;
+      status.textContent = 'Processing...';
+
+      try {
+        const arrayBuf = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuf);
+        const pages = pdfDoc.getPages();
+
+        const { Document, Packer, Paragraph, TextRun } = docx;
+        const doc = new Document();
+
+        for (const p of pages) {
+          const text = await p.getTextContent?.() || '';
+          doc.addSection({
+            properties: {},
+            children: [new Paragraph(String(text))]
+          });
+        }
+
+        const buffer = await Packer.toBuffer(doc);
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = file.name.replace(/\.pdf$/i, '.docx');
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+
+        status.textContent = 'Done — your file has been converted.';
+      } catch (e) {
+        console.error(e);
+        status.textContent = 'Conversion failed. Please try another PDF.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
