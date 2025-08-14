@@ -1,167 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free PDF to Word Converter | Fast & Secure Online Tool</title>
-    <meta name="description" content="Convert PDF to Word online for free. Fast, secure, no signup needed. Preserve formatting, tables, and images when possible. Works on mobile and desktop.">
-    <meta name="keywords" content="PDF to Word, Convert PDF, Free PDF Converter, Online PDF to Word Tool, No Signup PDF Converter">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            background: #007bff;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        main {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-top: 30px;
-        }
-        input[type="file"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        button {
-            background: #28a745;
-            color: white;
-            padding: 12px;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #218838;
-        }
-        .message {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        .success {
-            background: #d4edda;
-            color: #155724;
-        }
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 14px;
-            color: #777;
-            padding-bottom: 20px;
-        }
-        .adsense {
-            margin: 20px 0;
-            text-align: center;
-            background: #e9ecef;
-            padding: 10px;
-            border-radius: 5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free PDF to Word Converter Online | Fast & Secure</title>
+<meta name="description" content="Convert PDF to Word online for free. Fast, secure, and easy-to-use PDF to DOCX converter. Works without sign-up. Perfect for text-based PDFs.">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f4f4f4;
+        color: #333;
+    }
+    header {
+        background: #0073e6;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+    h1, h2 {
+        text-align: center;
+    }
+    input[type="file"], button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px;
+    }
+    #status {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .info-section {
+        margin-top: 20px;
+        line-height: 1.6;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
 </head>
 <body>
 
 <header>
     <h1>Free PDF to Word Converter</h1>
-    <p>Convert PDF to Word online — fast, secure & free</p>
+    <p>Fast • Secure • No Sign-up Required</p>
 </header>
 
-<main>
-    <div class="adsense">
-        <!-- Google AdSense code will go here after approval -->
-        <p>Advertisement</p>
-    </div>
-
+<div class="container">
+    <h2>Convert Your PDF to Word in Seconds</h2>
     <input type="file" id="pdfFile" accept="application/pdf">
     <button onclick="convertPDF()">Convert to Word</button>
-    
-    <div id="message" class="message"></div>
-</main>
+    <p id="status"></p>
 
-<footer>
-    <p>&copy; 2025 Free Tools by Addie Jaffrey | All Rights Reserved</p>
-</footer>
+    <div class="info-section">
+        <h2>About This Tool</h2>
+        <p>This free online PDF to Word converter lets you quickly turn your PDF documents into editable Word files. It’s completely free, works in your browser, and requires no registration or installation.</p>
 
-<!-- PDF.js library for reading PDF in browser -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+        <h3>How to Use</h3>
+        <ul>
+            <li>Click the "Choose File" button and upload your PDF.</li>
+            <li>Click "Convert to Word" to start the process.</li>
+            <li>Once complete, your Word document will be downloaded automatically.</li>
+        </ul>
+
+        <h3>Limitations</h3>
+        <p>This tool works best with text-based PDFs. If your PDF contains images, scanned pages, or complex tables, the conversion may not be accurate. For scanned files, use an OCR-based converter.</p>
+
+        <h3>Why Use This Tool?</h3>
+        <ul>
+            <li>100% free and browser-based — no software needed.</li>
+            <li>Secure — files are processed locally in your browser.</li>
+            <li>Fast and easy for everyday PDF to Word needs.</li>
+        </ul>
+
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Is my file safe?</strong> Yes, all processing happens in your browser. No files are uploaded to any server.</p>
+        <p><strong>Does it work on mobile?</strong> Yes, it works on smartphones, tablets, and desktops.</p>
+        <p><strong>Does it keep formatting?</strong> Basic formatting like paragraphs and fonts is preserved, but complex layouts may not convert perfectly.</p>
+    </div>
+</div>
 
 <script>
 async function convertPDF() {
     const fileInput = document.getElementById('pdfFile');
-    const messageDiv = document.getElementById('message');
-
-    if (!fileInput.files.length) {
-        messageDiv.textContent = "Please upload a PDF file first.";
-        messageDiv.className = "message error";
-        messageDiv.style.display = "block";
+    const status = document.getElementById('status');
+    if (fileInput.files.length === 0) {
+        status.innerText = "Please select a PDF file.";
         return;
     }
 
     const file = fileInput.files[0];
-
-    if (file.type !== "application/pdf") {
-        messageDiv.textContent = "Only PDF files are allowed.";
-        messageDiv.className = "message error";
-        messageDiv.style.display = "block";
-        return;
-    }
+    status.innerText = "Processing your file, please wait...";
 
     try {
         const arrayBuffer = await file.arrayBuffer();
         const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-        let textContent = "";
+        let doc = new docx.Document();
+        let paragraphs = [];
 
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
-            const text = await page.getTextContent();
-            text.items.forEach(item => {
-                textContent += item.str + " ";
-            });
-            textContent += "\n\n";
+            const textContent = await page.getTextContent();
+            const textItems = textContent.items.map(item => item.str).join(' ');
+            paragraphs.push(new docx.Paragraph(textItems));
         }
 
-        if (textContent.trim() === "") {
-            messageDiv.textContent = "Sorry, this PDF contains complex images or formatting that this tool can’t process. Please try a simpler PDF without scanned images.";
-            messageDiv.className = "message error";
-            messageDiv.style.display = "block";
-            return;
-        }
+        doc.addSection({ children: paragraphs });
 
-        const blob = new Blob([textContent], { type: "application/msword" });
-        const link = document.createElement("a");
+        const blob = await docx.Packer.toBlob(doc);
+        const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = file.name.replace(".pdf", ".doc");
+        link.download = file.name.replace('.pdf', '.docx');
         link.click();
 
-        messageDiv.textContent = "Conversion successful! Your Word file is downloading.";
-        messageDiv.className = "message success";
-        messageDiv.style.display = "block";
+        status.innerText = "✅ Conversion successful!";
     } catch (error) {
-        console.error(error);
-        messageDiv.textContent = "An error occurred while processing your PDF.";
-        messageDiv.className = "message error";
-        messageDiv.style.display = "block";
+        status.innerText = "⚠️ This tool works only with text-based PDFs. Image-based or scanned files cannot be converted.";
     }
+}
+</script>
+
+<!-- Schema Markup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Free PDF to Word Converter",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Convert PDF to Word online for free. Fast, secure, and easy-to-use PDF to DOCX converter. Works without sign-up. Perfect for text-based PDFs."
 }
 </script>
 
