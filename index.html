@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word to PDF Converter - Free Online Tool</title>
+<meta name="description" content="Free online Word to PDF converter. Convert DOCX to PDF instantly without installing software. Works directly in your browser.">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        padding: 20px;
+        text-align: center;
+    }
+    h1 {
+        color: #333;
+    }
+    .container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        display: inline-block;
+        margin-top: 20px;
+    }
+    input[type="file"] {
+        margin: 10px 0;
+    }
+    button {
+        padding: 10px 20px;
+        border: none;
+        background: #28a745;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #218838;
+    }
+    #output {
+        margin-top: 15px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Word to PDF Converter</h1>
+<p>Upload your DOCX file and download it instantly as a PDF — 100% free, no signup.</p>
+
+<div class="container">
+    <input type="file" id="upload" accept=".docx">
+    <br>
+    <button onclick="convertToPDF()">Convert to PDF</button>
+    <div id="output"></div>
+</div>
+
+<!-- Libraries for DOCX to PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+
+<script>
+function convertToPDF() {
+    const fileInput = document.getElementById('upload');
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Please select a DOCX file.");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const arrayBuffer = e.target.result;
+        window.docx.renderAsync(arrayBuffer, document.createElement('canvas')).then(function (canvas) {
+            const pdfDoc = {
+                content: [
+                    { image: canvas.toDataURL('image/png'), width: 500 }
+                ]
+            };
+            pdfMake.createPdf(pdfDoc).download(file.name.replace('.docx', '.pdf'));
+            document.getElementById('output').innerHTML = `<p>✅ File converted successfully!</p>`;
+        }).catch(err => {
+            alert("Error converting file. Try another DOCX.");
+            console.error(err);
+        });
+    };
+    reader.readAsArrayBuffer(file);
+}
+</script>
+
+</body>
+</html>
