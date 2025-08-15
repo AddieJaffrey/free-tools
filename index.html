@@ -6,43 +6,14 @@
 <title>Free PDF to Word Converter Online | Fast & Secure</title>
 <meta name="description" content="Convert PDF to Word online for free. Fast, secure, and easy-to-use PDF to DOCX converter. Works without sign-up. Perfect for text-based PDFs.">
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: #f4f4f4;
-        color: #333;
-    }
-    header {
-        background: #0073e6;
-        color: white;
-        padding: 15px;
-        text-align: center;
-    }
-    .container {
-        max-width: 900px;
-        margin: auto;
-        background: white;
-        padding: 20px;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        margin-top: 20px;
-    }
-    h1, h2 {
-        text-align: center;
-    }
-    input[type="file"], button {
-        display: block;
-        margin: 10px auto;
-        padding: 10px;
-    }
-    #status {
-        text-align: center;
-        margin-top: 10px;
-        font-weight: bold;
-    }
-    .info-section {
-        margin-top: 20px;
-        line-height: 1.6;
-    }
+    body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; color:#333; }
+    header { background:#0073e6; color:white; padding:15px; text-align:center; }
+    .container { max-width:900px; margin:auto; background:white; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.1); margin-top:20px; }
+    h1,h2 { text-align:center; }
+    input[type="file"], button { display:block; margin:10px auto; padding:10px; }
+    #status { text-align:center; margin-top:10px; font-weight:bold; }
+    .info-section { margin-top:20px; line-height:1.6; }
+    .ads-placeholder { text-align:center; background:#e9ecef; padding:10px; margin:15px 0; border-radius:5px; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
@@ -55,6 +26,9 @@
 </header>
 
 <div class="container">
+    <!-- AdSense placeholder -->
+    <div class="ads-placeholder">Advertisement</div>
+
     <h2>Convert Your PDF to Word in Seconds</h2>
     <input type="file" id="pdfFile" accept="application/pdf">
     <button onclick="convertPDF()">Convert to Word</button>
@@ -66,25 +40,23 @@
 
         <h3>How to Use</h3>
         <ul>
-            <li>Click the "Choose File" button and upload your PDF.</li>
+            <li>Click "Choose File" and upload your PDF.</li>
             <li>Click "Convert to Word" to start the process.</li>
-            <li>Once complete, your Word document will be downloaded automatically.</li>
+            <li>Your Word document will download automatically once conversion is done.</li>
         </ul>
 
         <h3>Limitations</h3>
-        <p>This tool works best with text-based PDFs. If your PDF contains images, scanned pages, or complex tables, the conversion may not be accurate. For scanned files, use an OCR-based converter.</p>
-
-        <h3>Why Use This Tool?</h3>
-        <ul>
-            <li>100% free and browser-based — no software needed.</li>
-            <li>Secure — files are processed locally in your browser.</li>
-            <li>Fast and easy for everyday PDF to Word needs.</li>
-        </ul>
+        <p>This tool works best with text-based PDFs. PDFs containing only images, scanned pages, or complex tables may not convert perfectly.</p>
 
         <h3>Frequently Asked Questions</h3>
-        <p><strong>Is my file safe?</strong> Yes, all processing happens in your browser. No files are uploaded to any server.</p>
+        <p><strong>Is my file safe?</strong> Yes, all processing happens in your browser. No files are uploaded anywhere.</p>
         <p><strong>Does it work on mobile?</strong> Yes, it works on smartphones, tablets, and desktops.</p>
-        <p><strong>Does it keep formatting?</strong> Basic formatting like paragraphs and fonts is preserved, but complex layouts may not convert perfectly.</p>
+        <p><strong>Will it preserve images or tables?</strong> Basic text is preserved; complex tables and images may not convert perfectly.</p>
+
+        <h3>Try Our Other Free Tools</h3>
+        <ul>
+            <li><a href="/p/free-tools.html">Other Free Tools</a></li>
+        </ul>
     </div>
 </div>
 
@@ -92,7 +64,7 @@
 async function convertPDF() {
     const fileInput = document.getElementById('pdfFile');
     const status = document.getElementById('status');
-    if (fileInput.files.length === 0) {
+    if (!fileInput.files.length) {
         status.innerText = "Please select a PDF file.";
         return;
     }
@@ -106,16 +78,30 @@ async function convertPDF() {
 
         let doc = new docx.Document();
         let paragraphs = [];
+        let textFound = false;
 
         for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const textContent = await page.getTextContent();
-            const textItems = textContent.items.map(item => item.str).join(' ');
-            paragraphs.push(new docx.Paragraph(textItems));
+            try {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const textItems = textContent.items.map(item => item.str).join(' ').trim();
+
+                if (textItems.length > 0) {
+                    textFound = true;
+                    paragraphs.push(new docx.Paragraph(textItems));
+                }
+            } catch (pageError) {
+                console.warn(`Page ${i} could not be read:`, pageError);
+                // skip this page
+            }
+        }
+
+        if (!textFound) {
+            status.innerText = "⚠️ Conversion failed: this PDF may contain only images or scanned pages.";
+            return;
         }
 
         doc.addSection({ children: paragraphs });
-
         const blob = await docx.Packer.toBlob(doc);
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -124,7 +110,8 @@ async function convertPDF() {
 
         status.innerText = "✅ Conversion successful!";
     } catch (error) {
-        status.innerText = "⚠️ This tool works only with text-based PDFs. Image-based or scanned files cannot be converted.";
+        console.error(error);
+        status.innerText = "⚠️ Conversion failed: unexpected error.";
     }
 }
 </script>
