@@ -16,7 +16,6 @@ input[type="file"], button { display:block; margin:10px auto; padding:10px; }
 .ads-placeholder { text-align:center; background:#e9ecef; padding:10px; margin:15px 0; border-radius:5px; }
 </style>
 
-<!-- PDF.js and docx.js scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
 </head>
@@ -50,15 +49,10 @@ input[type="file"], button { display:block; margin:10px auto; padding:10px; }
         <h3>Limitations</h3>
         <p>This tool works best with text-based PDFs. PDFs containing only images, scanned pages, or complex tables may not convert perfectly.</p>
 
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Is my file safe?</strong> Yes, all processing happens in your browser. No files are uploaded anywhere.</p>
-        <p><strong>Does it work on mobile?</strong> Yes, it works on smartphones, tablets, and desktops.</p>
-        <p><strong>Will it preserve images or tables?</strong> Basic text is preserved; complex tables and images may not convert perfectly.</p>
-
-        <h3>Try Our Other Free Tools</h3>
-        <ul>
-            <li><a href="/p/free-tools.html">Other Free Tools</a></li>
-        </ul>
+        <h3>FAQ</h3>
+        <p><strong>Is my file safe?</strong> All processing happens in your browser. No files are uploaded.</p>
+        <p><strong>Does it work on mobile?</strong> Yes, on smartphones, tablets, and desktops.</p>
+        <p><strong>Will images or tables convert?</strong> Only basic text is converted; images and complex tables may not convert.</p>
     </div>
 </div>
 
@@ -94,7 +88,6 @@ async function convertPDF() {
                 }
             } catch (pageError) {
                 console.warn(`Page ${i} could not be read:`, pageError);
-                // skip unreadable pages
             }
         }
 
@@ -126,11 +119,7 @@ async function convertPDF() {
   "name": "Free PDF to Word Converter",
   "applicationCategory": "Utility",
   "operatingSystem": "Any",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "description": "Convert PDF to Word online for free. Fast, secure, and easy-to-use PDF to DOCX converter. Works without sign-up. Perfect for text-based PDFs."
 }
 </script>
